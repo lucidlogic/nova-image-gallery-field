@@ -10,7 +10,7 @@
 
 ## Features
 
--   For Laravel Nova ^4.0
+-   For Laravel Nova 4.x and & 5.x
 -   Multiple image upload into a `spatie/laravel-medialibrary` collection.
 -   Image sorting
 -   Custom Image Validation
@@ -31,7 +31,7 @@ composer require ardenthq/nova-image-gallery-field
 
 -   PHP ^8.0
 -   [Laravel](https://laravel.com/)
--   [Laravel Nova ^4.22](https://nova.laravel.com/), for lower versions see the [Compatibility Branch](#compatibility-branch)
+-   [Laravel Nova ^4.22|^5.0](https://nova.laravel.com/), for lower versions see the [Compatibility Branch](#compatibility-branch)
 -   [Laravel Media Library](https://spatie.be/docs/laravel-medialibrary)
 
 ## Use

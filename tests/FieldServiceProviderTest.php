@@ -20,7 +20,7 @@ it('adds the image-gallery-field closure when serving nova', function () {
 it('adds the scripts when nova is serving', function () {
     (new FieldServiceProvider(app()))->boot();
 
-    Event::dispatch(new ServingNova(request()));
+    Event::dispatch(new ServingNova(app(), request()));
 
     expect(Nova::$scripts)->toHaveLength(1)
         ->and(Nova::$scripts[0]->name())->toBe('image-gallery-field');
