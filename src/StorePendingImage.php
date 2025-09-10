@@ -32,38 +32,32 @@ class StorePendingImage
      */
     public function __invoke(Request $request)
     {
-        $this->validate(
-            $request,
-            [
-                'attachment' => [...$this->field->imageRules, 'required'],
-                'draftId'    => 'required',
-            ],
-            $this->field->imageRulesMessages
-        );
-
+        $key = $request->input('key');
+        $fullUrl = $request->input('url');
         /** @var UploadedFile $file */
         $file = $request->file('attachment');
         /** @var string $originalFileName */
         $filePathinfo = pathinfo($file->getClientOriginalName());
-        /** @var string $storageDir */
-        $storageDir = rtrim($this->field->getStorageDir(), '/') . '/nova-pending-images';
         /** @var string $disk */
         $disk = $this->field->getStorageDisk();
         /** @var string $draftId */
         $draftId = (string) $request->input('draftId');
 
-        $attachment = $file->store($storageDir, $disk);
+        Storage::disk($disk)->copy(
+            $key,
+            str_replace('tmp/', '', $key)
+        );
 
         $attachment = PendingAttachment::create([
             'draft_id'      => $draftId,
-            'attachment'    => $attachment,
+            'attachment'    => $key,
             'disk'          => $disk,
             'original_name' => Str::slug($filePathinfo['filename']) . "." . strtolower($filePathinfo['extension'])
         ]);
 
         /** @var FilesystemAdapter $storage */
         $storage = Storage::disk($disk);
-        $url     = $storage->url($attachment->attachment);
+        $url     = $storage->url($key);
 
         // We need to return a string to make it compatible with the parent class
         /** @var string $result */
