@@ -34,17 +34,15 @@ class StorePendingImage
     {
         $key = $request->input('key');
         $fullUrl = $request->input('url');
-        /** @var UploadedFile $file */
-        $file = $request->file('attachment');
         /** @var string $originalFileName */
-        $filePathinfo = pathinfo($file->getClientOriginalName());
+        $fileName = $request->input('fileName');
         /** @var string $disk */
         $disk = $this->field->getStorageDisk();
         /** @var string $draftId */
         $draftId = (string) $request->input('draftId');
 
         Storage::disk($disk)->copy(
-            $key,
+            $fileName,
             str_replace('tmp/', '', $key)
         );
 
@@ -52,7 +50,7 @@ class StorePendingImage
             'draft_id'      => $draftId,
             'attachment'    => $key,
             'disk'          => $disk,
-            'original_name' => Str::slug($filePathinfo['filename']) . "." . strtolower($filePathinfo['extension'])
+            'original_name' => $fileName
         ]);
 
         /** @var FilesystemAdapter $storage */

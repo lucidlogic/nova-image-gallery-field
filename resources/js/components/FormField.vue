@@ -6,7 +6,7 @@
                     <div
                         class="rounded-xl p-1.5 border-2 border-dashed border-primary-100 dark:border-gray-700 relative h-48 group"
                     >
-                      KOOOO
+                      HOOO
                         <input
                             :id="field.attribute"
                             type="file"
@@ -181,8 +181,8 @@ export default {
                 const data = new FormData();
 
                 data.append("Content-Type", file.type);
-                data.append("attachment", file);
                 data.append("draftId", this.draftId);
+                data.append('fileName', file.name);
 
                 const fileId = uniqid();
 
