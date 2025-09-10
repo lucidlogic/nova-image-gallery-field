@@ -6,6 +6,7 @@
                     <div
                         class="rounded-xl p-1.5 border-2 border-dashed border-primary-100 dark:border-gray-700 relative h-48 group"
                     >
+                      KOOOO
                         <input
                             :id="field.attribute"
                             type="file"
@@ -119,6 +120,8 @@ import FieldImage from "./FieldImage.vue";
 import uniqid from "uniqid";
 import Sortable from "sortablejs";
 import Toasted from "toastedjs";
+import Vapor from 'laravel-vapor'
+window.Vapor = Vapor
 
 export default {
     components: {
@@ -192,7 +195,17 @@ export default {
                 });
 
                 try {
-                    const response = await Nova.request().post(
+                  const vaporResponse = await Vapor.store(file, {
+                    bucket: 'cde-brands',
+                    visibility: 'public-read'
+                  })
+
+                  console.log(vaporResponse)
+
+                  data.append("url", vaporResponse.url);
+                  data.append("key", vaporResponse.key);
+
+                  const response = await Nova.request().post(
                         `/nova-api/${this.resourceName}/field-attachment/${this.field.attribute}`,
                         data
                     );
