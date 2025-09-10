@@ -6,7 +6,6 @@
                     <div
                         class="rounded-xl p-1.5 border-2 border-dashed border-primary-100 dark:border-gray-700 relative h-48 group"
                     >
-                      HOOO
                         <input
                             :id="field.attribute"
                             type="file"
