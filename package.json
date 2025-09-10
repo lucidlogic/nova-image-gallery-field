@@ -22,6 +22,7 @@
     "dependencies": {
         "sortablejs": "^1.15.0",
         "toastedjs": "^0.0.2",
-        "uniqid": "^5.4.0"
+        "uniqid": "^5.4.0",
+        "laravel-vapor": "^0.7.1"
     }
 }
